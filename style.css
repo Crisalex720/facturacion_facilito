@@ -1,0 +1,25 @@
+body {
+    background-color: #1b1a1a; /* Fondo negro (puedes cambiarlo a otro color) */
+    height: 100vh; 
+    display: flex;
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    margin: 0;
+}
+
+.login-card {
+    background: #fff; /* Fondo blanco del formulario */
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.5);
+    width: 350px;
+}
+
+.login-card h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn {
+    margin-top: 10px; /* separación del botón */
+}
