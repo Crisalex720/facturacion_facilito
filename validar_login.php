@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'conexion.php';
+include '../facturacion_facilito/conexion_DB/conexion.php';
 
 $usuario = $_POST['usuario'];
 $clave = $_POST['clave'];

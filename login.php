@@ -9,7 +9,7 @@
 <body>
     <div class="login-card">
         <h2>Iniciar Sesión</h2>
-        <form action="validar_login.php" method="POST">
+        <form action="../facturacion_facilito/validar_login.php" method="POST">
             <div class="mb-3">
                 <label for="usuario" class="form-label">Usuario</label>
                 <input type="text" class="form-control" id="usuario" name="usuario" required>
