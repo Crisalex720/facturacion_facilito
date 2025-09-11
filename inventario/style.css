@@ -2,31 +2,57 @@
 .modal {
   display: none;
   position: fixed;
-  z-index: 1050;
+  z-index: 10000;
   left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   overflow: auto;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
 }
 .modal-content {
-  background: #ffffff;
-  margin: 10% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 400px;
-  border-radius: 8px;
+  background: #f7fafc;
+  margin: 3rem auto;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  border-radius: 32px;
+  max-width: 600px;
+  min-width: 320px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+.modal-content h3 {
+  margin-bottom: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+.modal-content .close {
+  position: absolute;
+  top: 10px;
+  right: 18px;
+  font-size: 1.5rem;
+  color: #888;
   cursor: pointer;
+  font-weight: bold;
+  transition: color 0.2s;
 }
-.close:hover {
-  color: #000;
+.modal-content .close:hover {
+  color: #e74c3c;
+}
+.modal-content form .mb-3 {
+  margin-bottom: 0.8rem !important;
+}
+.modal-content form input,
+.modal-content form button {
+  font-size: 0.98rem;
+}
+.modal-content form button {
+  margin-top: 0.5rem;
 }
 
 /* Ajustes para formularios y botones personalizados */
@@ -34,3 +60,19 @@
   background: #3e86b6 !important;
   cursor: not-allowed;
 }
+
+/* Centrar texto y hacer la tabla más ancha */
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+.table {
+    min-width: 900px;
+}
+
+/* Fondo azul-gris suave para la página de inventario */
+body {
+    background: linear-gradient(180deg, #e3f0ff 0%, #ffffff 100%);
+    min-height: 100vh;
+}
+
