@@ -2,29 +2,29 @@
 session_start();
 include '../facturacion_facilito/conexion_DB/conexion.php';
 
+// Captura datos del formulario
 $usuario = $_POST['usuario'];
 $clave = $_POST['clave'];
 
+// Conecta con la base de datos usando las credenciales ingresadas
 $conn = conectarDB($usuario, $clave);
 
 if ($conn) {
+    // Guarda datos en sesión
     $_SESSION['usuario'] = $usuario;
     $_SESSION['clave'] = $clave;
 
     // Asigna permisos según el usuario
-    // Puedes mejorar esto usando una tabla de roles en la BD si lo deseas
     $permisos = [
-        'valeria' => 'leer',
-        'leonardo' => 'crear',
-        'alexander' => 'actualizar',
-        'cristian' => 'eliminar'
+        'ceo' => 'todos',        // Super usuario con todos los permisos
+        'caja' => 'caja',
     ];
-    $_SESSION['permiso'] = isset($permisos[$usuario]) ? $permisos[$usuario] : '';
-
-    header("Location: index.php");
+    // Redirige al inventario
+    header("Location: inventario/index.html");
     exit;
 } else {
-    header("Location: login.php?error=1");
+    // Si falla la conexión, vuelve al login con error
+    echo pg_last_error();
     exit;
 }
 ?>
