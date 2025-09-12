@@ -37,13 +37,54 @@ if (isset($_POST['id']) && isset($_POST['codigo_barra']) && isset($_POST['nombre
     $cantidad = isset($_POST['cantidad']) && $_POST['cantidad'] !== '' ? $_POST['cantidad'] : 0;
     $precio_costo = isset($_POST['precio_costo']) && $_POST['precio_costo'] !== '' ? $_POST['precio_costo'] : 0;
     $precio_venta = $_POST['precio_venta'];
+    $eliminar_imagen = isset($_POST['eliminar_imagen']) ? $_POST['eliminar_imagen'] : '0';
+
+    // Obtener imagen actual
+    $res_img = pg_query($conn, "SELECT imagen_url FROM producto WHERE id_producto = $id");
+    $row_img = pg_fetch_assoc($res_img);
+    $imagen_actual = $row_img ? $row_img['imagen_url'] : '';
+    $imagen_url = $imagen_actual;
+
+    // Eliminar imagen si se solicita
+    if ($eliminar_imagen === '1' && $imagen_actual) {
+        $ruta_fisica = __DIR__ . '/' . $imagen_actual;
+        if (file_exists($ruta_fisica)) {
+            unlink($ruta_fisica);
+        }
+        $imagen_url = '';
+    }
+
+    // Subir nueva imagen si se proporciona
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        $tmp_name = $_FILES['imagen']['tmp_name'];
+        $info = getimagesize($tmp_name);
+        if ($info !== false) {
+            $ancho = $info[0];
+            $alto = $info[1];
+            if ($ancho <= 500 && $alto <= 500) {
+                // Eliminar imagen anterior si existe
+                if ($imagen_actual && file_exists(__DIR__ . '/' . $imagen_actual)) {
+                    unlink(__DIR__ . '/' . $imagen_actual);
+                }
+                $nombre_archivo = uniqid('prod_') . '_' . basename($_FILES['imagen']['name']);
+                $ruta_destino = 'imagenes_prod/' . $nombre_archivo;
+                if (move_uploaded_file($tmp_name, __DIR__ . '/' . $ruta_destino)) {
+                    $imagen_url = $ruta_destino;
+                }
+            } else {
+                $mensaje = 'La imagen debe ser de máximo 500x500 píxeles.';
+            }
+        } else {
+            $mensaje = 'El archivo seleccionado no es una imagen válida.';
+        }
+    }
 
     if ($codigo === '' || $nombre === '' || $precio_venta === '' || $precio_venta === null) {
         header('Location: inventario.php?msg=campos_obligatorios');
         exit;
     }
 
-    $update = "UPDATE producto SET barcode='$codigo', nombre_prod='$nombre', cantidad_prod=$cantidad, precio_costop=$precio_costo, precio_ventap=$precio_venta WHERE id_producto=$id";
+    $update = "UPDATE producto SET barcode='$codigo', nombre_prod='$nombre', cantidad_prod=$cantidad, precio_costop=$precio_costo, precio_ventap=$precio_venta, imagen_url='$imagen_url' WHERE id_producto=$id";
     if (pg_query($conn, $update)) {
         header('Location: inventario.php?msg=actualizado');
         exit;
@@ -166,6 +207,13 @@ $productos = pg_query($conn, "SELECT * FROM producto $where ORDER BY id_producto
                         <div class="card-body">
                             <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
                                 <h2 class="mb-0">Inventario de Productos</h2>
+                                <div class="btn-group" role="group" aria-label="Navegación">
+                                    <a href="../clientes/registro_clientes.php" class="btn btn-outline-primary">Clientes</a>
+                                    <a href="../facturacion/facturacion.php" class="btn btn-outline-primary">Facturación</a>
+                                    <a href="../devoluciones/devoluciones.php" class="btn btn-outline-primary">Devoluciones</a>
+                                    <a href="index.html" class="btn btn-primary disabled" tabindex="-1" aria-disabled="true">Inventario</a>
+                                    <a href="../logout.php" class="btn btn-outline-danger">Cerrar sesión</a>
+                                </div>
                                 <button class="btn btn-success" id="abrirModal" <?php if(!$puede_insertar) echo 'disabled'; ?>>
                                     <i class="bi bi-plus-circle"></i> Agregar Producto
                                 </button>

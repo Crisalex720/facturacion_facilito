@@ -23,3 +23,51 @@ body {
 .btn {
     margin-top: 10px; /* separación del botón */
 }
+
+/* Estilos para el modal de error de login */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    align-items: center;
+    justify-content: center;
+}
+.modal-content {
+    background: #fff;
+    margin: auto;
+    padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+    border-radius: 10px;
+    max-width: 350px;
+    min-width: 220px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #e74c3c;
+}
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    font-size: 1.5rem;
+    color: #888;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+.modal-content .close:hover {
+    color: #e74c3c;
+}
+.modal-content div {
+    color: #e74c3c;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-top: 0.5rem;
+}
