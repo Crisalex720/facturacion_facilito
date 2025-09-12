@@ -12,6 +12,7 @@
     <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
         <h2 class="mb-0">Devoluciones</h2>
         <div class="btn-group" role="group" aria-label="Navegación">
+            <a href="../trabajadores/usuarios.php" class="btn btn-outline-primary">Usuarios</a>
             <a href="../clientes/registro_clientes.php" class="btn btn-outline-primary">Clientes</a>
             <a href="../facturacion/facturacion.php" class="btn btn-outline-primary">Facturación</a>
             <a href="../devoluciones/devoluciones.php" class="btn btn-primary disabled" tabindex="-1" aria-disabled="true">Devoluciones</a>

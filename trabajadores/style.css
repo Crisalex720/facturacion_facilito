@@ -1,0 +1,260 @@
+/* Botones de navegación */
+.nav-btn {
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 8px;
+    padding: 0.45rem 1.1rem;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.nav-btn:focus, .nav-btn:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    outline: none;
+}
+/* Modal de confirmación o error */
+#modalMensaje {
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(44, 62, 80, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+#modalMensaje .modal-content {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    max-width: 400px;
+    min-width: 260px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    border-top: 6px solid #2563eb;
+    animation: modalFadeIn 0.3s;
+}
+#modalMensaje .close {
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    font-size: 1.5rem;
+    color: #888;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+#modalMensaje .close:hover {
+    color: #e74c3c;
+}
+#modalMensaje #contenidoMensaje {
+    font-size: 1.1rem;
+    color: #222;
+    text-align: center;
+    margin-top: 0.7rem;
+    margin-bottom: 0.5rem;
+}
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* Celda de contraseña: alinear contenido horizontalmente */
+td.password-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding-left: 0;
+    padding-right: 0;
+}
+/* Botones de mostrar/ocultar contraseña */
+.password-toggle-btn {
+    width: 20px;
+    height: 20px;
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* No position absolute por defecto */
+}
+
+/* Solo en formularios, el botón va absoluto */
+.usuarios-form-row .password-toggle-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 2;
+}
+.password-toggle-btn svg {
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+/* Ajuste para evitar superposición en inputs */
+.usuarios-form-row .fila-campos > div {
+    position: relative;
+}
+/* Estilos para gestión de usuarios */
+.usuarios-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.usuarios-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+.usuarios-form-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+}
+.usuarios-form-card .card-body {
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+}
+.usuarios-form-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem 0;
+}
+.usuarios-form-row .fila-campos {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    width: 100%;
+}
+.usuarios-form-row .fila-campos > div {
+    margin-bottom: 0;
+}
+.usuarios-form-row .fila-selects {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    width: 100%;
+    margin-top: 0.2rem;
+}
+.usuarios-form-row .fila-boton {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.7rem;
+}
+.usuarios-form-row .form-control,
+.usuarios-form-row .form-select {
+    min-width: 160px;
+    max-width: 240px;
+    width: 100%;
+}
+.usuarios-form-row .btn-success.w-100 {
+    min-width: 180px;
+    max-width: 220px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.usuarios-table-card {
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+}
+.usuarios-table-card .card-body {
+    padding: 1.5rem 1rem;
+}
+.table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+.table {
+    min-width: 900px;
+}
+.btn-danger.btn-sm {
+    font-size: 0.95rem;
+    padding: 0.3rem 0.7rem;
+}
+.btn-success.w-100 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    min-width: 160px;
+    height: 42px;
+    align-self: flex-end;
+    margin-top: 0.5rem;
+    writing-mode: initial;
+    text-orientation: initial;
+}
+
+.select-departamento {
+    min-width: 80px;
+    max-width: 220px;
+    width: 100%;
+}
+
+@media (max-width: 900px) {
+    .usuarios-form-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .usuarios-form-row .form-control,
+    .usuarios-form-row .form-select {
+        min-width: 120px;
+        max-width: 100%;
+    }
+    .usuarios-form-row .btn-success.w-100 {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+/* Estilos para el modal de editar usuario */
+#modalEditarUsuario .modal-content {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    max-width: 600px;
+    min-width: 320px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+#modalEditarUsuario h3 {
+    color: #2563eb;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+}
+#modalEditarUsuario .close {
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    font-size: 1.5rem;
+    color: #888;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+#modalEditarUsuario .close:hover {
+    color: #e74c3c;
+}
+#modalEditarUsuario .usuarios-form-row {
+    width: 100%;
+}
+#modalEditarUsuario .fila-boton {
+    margin-top: 1.2rem;
+}
+
+body{
+    background: linear-gradient(180deg, #e3f0ff 0%, #ffffff 100%);
+    min-height: 100vh;
+}

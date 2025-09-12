@@ -5,21 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Módulo de facturacion</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<div class="container mt-5">
-    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
-        <h2 class="mb-0">Facturación</h2>
-        <div class="btn-group" role="group" aria-label="Navegación">
-            <a href="../clientes/registro_clientes.php" class="btn btn-outline-primary">Clientes</a>
-            <a href="../facturacion/facturacion.php" class="btn btn-primary disabled" tabindex="-1" aria-disabled="true">Facturación</a>
-            <a href="../devoluciones/devoluciones.php" class="btn btn-outline-primary">Devoluciones</a>
-            <a href="../inventario/inventario.php" class="btn btn-outline-primary">Inventario</a>
-            <a href="../logout.php" class="btn btn-outline-danger">Cerrar sesión</a>
+    <!-- Barra de navegación superior -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand font-weight-bold text-primary">Facturación Fácilito</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-outline-info nav-btn" href="../trabajadores/usuarios.php">Usuarios</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-primary nav-btn disabled" href="../facturacion/facturacion.php" tabindex="-1" aria-disabled="true">Facturación</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-outline-secondary nav-btn" href="../devoluciones/devoluciones.php">Devoluciones</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-outline-success nav-btn" href="../inventario/inventario.php" tabindex="-1" aria-disabled="true">Inventario</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-outline-info nav-btn" href="../clientes/registro_clientes.php">Clientes</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-outline-danger nav-btn" href="../logout.php">Cerrar sesión</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-
+    </nav>
     <!-- Contenido del módulo de devoluciones -->
 
 </div>

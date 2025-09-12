@@ -23,6 +23,6 @@ $permisos = [
     'caja' => 'caja',
 ];
 // Redirige al inventario
-header("Location: inventario/inventario.php");
+header("Location: facturacion/facturacion.php");
 exit;
 ?>

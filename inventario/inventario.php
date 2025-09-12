@@ -163,6 +163,8 @@ if (isset($_GET['msg'])) {
         }
     } elseif ($_GET['msg'] === 'campos_obligatorios') {
         $mensaje = 'Debe completar Código de Barras, Nombre y Precio de Venta.';
+    } elseif ($_GET['msg'] === 'stock_actualizado') {
+        $mensaje = 'Stock de productos actualizado correctamente.';
     }
 }
 
@@ -200,6 +202,34 @@ $productos = pg_query($conn, "SELECT * FROM producto $where ORDER BY id_producto
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Barra de navegación superior -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand font-weight-bold text-primary">Facturación Fácilito</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-outline-info nav-btn" href="../trabajadores/usuarios.php">Usuarios</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-outline-primary nav-btn" href="../facturacion/facturacion.php">Facturación</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-outline-secondary nav-btn" href="../devoluciones/devoluciones.php">Devoluciones</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-success nav-btn disabled" href="../inventario/inventario.php" tabindex="-1" aria-disabled="true">Inventario</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-outline-info nav-btn" href="../clientes/registro_clientes.php">Clientes</a>
+                    </li>
+                    <li class="nav-item mx-1">
+                        <a class="btn btn-outline-danger nav-btn" href="../logout.php">Cerrar sesión</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
         <div class="container py-4">
             <div class="row justify-content-center mb-4">
                 <div class="col-lg-12">
@@ -207,13 +237,6 @@ $productos = pg_query($conn, "SELECT * FROM producto $where ORDER BY id_producto
                         <div class="card-body">
                             <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
                                 <h2 class="mb-0">Inventario de Productos</h2>
-                                <div class="btn-group" role="group" aria-label="Navegación">
-                                    <a href="../clientes/registro_clientes.php" class="btn btn-outline-primary">Clientes</a>
-                                    <a href="../facturacion/facturacion.php" class="btn btn-outline-primary">Facturación</a>
-                                    <a href="../devoluciones/devoluciones.php" class="btn btn-outline-primary">Devoluciones</a>
-                                    <a href="index.html" class="btn btn-primary disabled" tabindex="-1" aria-disabled="true">Inventario</a>
-                                    <a href="../logout.php" class="btn btn-outline-danger">Cerrar sesión</a>
-                                </div>
                                 <button class="btn btn-success" id="abrirModal" <?php if(!$puede_insertar) echo 'disabled'; ?>>
                                     <i class="bi bi-plus-circle"></i> Agregar Producto
                                 </button>
@@ -383,6 +406,50 @@ $productos = pg_query($conn, "SELECT * FROM producto $where ORDER BY id_producto
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     </div>
 
+    <!-- Botón para abrir el modal de stock -->
+    <button class="btn btn-secondary mb-3" id="abrirModalStock">
+        <i class="bi bi-box-seam"></i> Ajustar Stock
+    </button>
+
+    <!-- Modal para ajustar stock -->
+    <div id="modalStock" class="modal">
+        <div class="modal-content">
+            <span class="close" id="cerrarModalStock">&times;</span>
+            <h3 class="mb-3">Ajustar Stock de Productos</h3>
+            <form method="post" action="inventario.php">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Código de Barras</th>
+                            <th>Nombre</th>
+                            <th>Unidades Disponibles</th>
+                            <th>Sumar</th>
+                            <th>Restar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    // Mostrar todos los productos para ajuste rápido
+                    $productos_stock = pg_query($conn, "SELECT id_producto, barcode, nombre_prod, cantidad_prod FROM producto ORDER BY id_producto");
+                    while($row = pg_fetch_assoc($productos_stock)):
+                    ?>
+                        <tr>
+                            <td><?php echo $row['id_producto']; ?></td>
+                            <td><?php echo htmlspecialchars($row['barcode']); ?></td>
+                            <td><?php echo htmlspecialchars($row['nombre_prod']); ?></td>
+                            <td><?php echo htmlspecialchars($row['cantidad_prod']); ?></td>
+                            <td><input type="number" name="sumar[<?php echo $row['id_producto']; ?>]" min="0" class="form-control form-control-sm" style="width:80px;"></td>
+                            <td><input type="number" name="restar[<?php echo $row['id_producto']; ?>]" min="0" class="form-control form-control-sm" style="width:80px;"></td>
+                        </tr>
+                    <?php endwhile; ?>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary w-100" type="submit" name="ajustar_stock">Aplicar Cambios</button>
+            </form>
+        </div>
+    </div>
+
     <script>
     // Modal agregar
     var modal = document.getElementById('modalAgregar');
@@ -425,29 +492,26 @@ $productos = pg_query($conn, "SELECT * FROM producto $where ORDER BY id_producto
     document.getElementById('modalEditar').style.display = 'block';
 }
 
-    // Modal para ver imagen
+    // Modal para ver imagen (mejorado, usa id y css)
     function verImagen(url) {
     var modal = document.createElement('div');
-    modal.style.position = 'fixed';
-    modal.style.left = 0;
-    modal.style.top = 0;
-    modal.style.width = '100vw';
-    modal.style.height = '100vh';
-    modal.style.background = 'rgba(0,0,0,0.7)';
-    modal.style.display = 'flex';
-    modal.style.alignItems = 'center';
-    modal.style.justifyContent = 'center';
-    modal.style.zIndex = 9999;
+    modal.id = 'modalImagenCustom';
     var img = document.createElement('img');
     img.src = url;
-    img.style.maxWidth = '90vw';
-    img.style.maxHeight = '80vh';
-    img.style.border = '8px solid #fff';
-    img.style.borderRadius = '10px';
     modal.appendChild(img);
     modal.onclick = function() { document.body.removeChild(modal); };
     document.body.appendChild(modal);
 }
+
+    // Modal de stock
+    var modalStock = document.getElementById('modalStock');
+    var btnStock = document.getElementById('abrirModalStock');
+    var closeStock = document.getElementById('cerrarModalStock');
+    btnStock.onclick = function() { modalStock.style.display = 'block'; }
+    closeStock.onclick = function() { modalStock.style.display = 'none'; }
+    window.onclick = function(event) {
+        if (event.target == modalStock) { modalStock.style.display = 'none'; }
+    }
     </script>
 </body>
 </html>
