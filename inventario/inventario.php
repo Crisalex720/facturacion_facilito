@@ -237,6 +237,10 @@ $productos = pg_query($conn, "SELECT * FROM producto $where ORDER BY id_producto
                         <div class="card-body">
                             <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
                                 <h2 class="mb-0">Inventario de Productos</h2>
+                                    <!-- Botón para abrir el modal de stock -->
+                                <button class="btn btn-secondary" id="abrirModalStock">
+                                    <i class="bi bi-box-seam"></i> Ajustar Stock
+                                </button>
                                 <button class="btn btn-success" id="abrirModal" <?php if(!$puede_insertar) echo 'disabled'; ?>>
                                     <i class="bi bi-plus-circle"></i> Agregar Producto
                                 </button>
@@ -405,11 +409,6 @@ $productos = pg_query($conn, "SELECT * FROM producto $where ORDER BY id_producto
             </div>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     </div>
-
-    <!-- Botón para abrir el modal de stock -->
-    <button class="btn btn-secondary mb-3" id="abrirModalStock">
-        <i class="bi bi-box-seam"></i> Ajustar Stock
-    </button>
 
     <!-- Modal para ajustar stock -->
     <div id="modalStock" class="modal">

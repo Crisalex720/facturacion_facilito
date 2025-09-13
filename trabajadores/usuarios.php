@@ -61,7 +61,7 @@ if (isset($_POST['editar'])) {
 }
 
 // Listar usuarios
-$usuarios = pg_query($conn, "SELECT * FROM trabajadores ORDER BY id_trab DESC");
+$usuarios = pg_query($conn, "SELECT t.*, d.nombre_depart, p.nombre_pais, c.nombre_ciudad FROM trabajadores t LEFT JOIN departamento d ON t.id_depart = d.id_depart LEFT JOIN pais p ON t.id_pais = p.id_pais LEFT JOIN ciudad c ON t.id_ciudad = c.id_ciudad ORDER BY t.id_trab DESC");
 
 // Listar países, departamentos y ciudades para selects
 $paises = pg_query($conn, "SELECT * FROM pais ORDER BY nombre_pais");
@@ -207,9 +207,9 @@ $ciudades = pg_query($conn, "SELECT * FROM ciudad ORDER BY nombre_ciudad");
                         <td><?php echo htmlspecialchars($u['nombre']); ?></td>
                         <td><?php echo htmlspecialchars($u['apellido']); ?></td>
                         <td><?php echo htmlspecialchars($u['cargo']); ?></td>
-                        <td><?php echo $u['id_pais']; ?></td>
-                        <td><?php echo $u['id_depart']; ?></td>
-                        <td><?php echo $u['id_ciudad']; ?></td>
+                        <td><?php echo htmlspecialchars($u['nombre_pais']); ?></td>
+                        <td><?php echo htmlspecialchars($u['nombre_depart']); ?></td>
+                        <td><?php echo htmlspecialchars($u['nombre_ciudad']); ?></td>
                         <td class="password-cell">
                             <span class="password-mask" id="pw_mask_<?php echo $u['id_trab']; ?>">••••••••</span>
                             <span class="d-none" id="pw_real_<?php echo $u['id_trab']; ?>"><?php echo htmlspecialchars($u['contraseña']); ?></span>

@@ -1,0 +1,79 @@
+/* Marca de la barra de navegación en negrita */
+.navbar-brand {
+  font-weight: 700 !important;
+}
+
+/* Botones de navegación (igual que facturación) */
+.nav-btn {
+    font-weight: 600;
+    font-size: 1rem;
+    border-radius: 8px;
+    padding: 0.45rem 1.1rem;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.nav-btn:focus, .nav-btn:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    outline: none;
+}
+
+body{
+    background: linear-gradient(180deg, #e3f0ff 0%, #ffffff 100%);
+    min-height: 100vh;
+}
+
+/* --- ESTILOS UNIFICADOS PARA TABLAS Y BOTONES --- */
+.carrito-table, .table {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    margin: 0 auto 2rem auto;
+    min-width: 900px;
+    overflow: hidden;
+}
+.carrito-thead, .table thead {
+    background: #2563eb;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+.carrito-table th, .carrito-table td, .table th, .table td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 1.1rem 1.2rem;
+    font-size: 1.05rem;
+}
+.carrito-table tbody tr, .table tbody tr {
+    border-top: 4px solid #2563eb;
+    transition: background 0.18s;
+}
+.carrito-table tbody tr:hover, .table tbody tr:hover {
+    background: #e3f0ff;
+}
+.btn-procesar-devol, .btn-success.w-100 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    min-width: 180px;
+    max-width: 220px;
+    width: 100%;
+    height: 44px;
+    border-radius: 8px;
+    margin-top: 0.7rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: box-shadow 0.18s;
+}
+.btn-procesar-devol:focus, .btn-procesar-devol:hover, .btn-success.w-100:focus, .btn-success.w-100:hover {
+    box-shadow: 0 4px 16px rgba(37,99,235,0.15);
+    outline: none;
+}
+@media (max-width: 1000px) {
+    .carrito-table, .table {
+        min-width: 100%;
+        font-size: 0.98rem;
+    }
+    .carrito-table th, .carrito-table td, .table th, .table td {
+        padding: 0.7rem 0.5rem;
+    }
+}
